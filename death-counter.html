@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Neko Death Counter</title>
+  <style>
+    body {
+      background: transparent;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
+    }
+
+    #wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-top: 40px;
+    }
+
+    #neko-img {
+      width: 150px;
+      margin-bottom: 10px;
+    }
+
+    #latte-img {
+      width: 80px;
+      margin-top: 10px;
+    }
+
+    #counter {
+      font-size: 48px;
+      text-shadow: 2px 2px 4px #ff69b4;
+    }
+
+    .controls {
+      margin-top: 20px;
+      display: none; /* Hide for OBS overlay unless testing */
+    }
+
+    button {
+      font-size: 20px;
+      padding: 10px 20px;
+      margin: 0 10px;
+      cursor: pointer;
+      border-radius: 10px;
+      border: none;
+      background: #ffccdd;
+      color: #333;
+    }
+
+    button:hover {
+      background: #ffe4ec;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrapper">
+    <img id="neko-img" src="https://i.imgur.com/fjICRAz.png" alt="neko ears">
+    
+    <div id="counter">Deaths: 0</div>
+    
+    <img id="latte-img" src="https://i.imgur.com/xFcID0H.png" alt="latte art">
+
+    <div class="controls">
+      <button onclick="increment()">+1</button>
+      <button onclick="reset()">Reset</button>
+    </div>
+  </div>
+
+  <script>
+    let count = localStorage.getItem('deathCount') || 0;
+    const counterDisplay = document.getElementById('counter');
+
+    function updateDisplay() {
+      counterDisplay.textContent = `Deaths: ${count}`;
+    }
+
+    function increment() {
+      count++;
+      localStorage.setItem('deathCount', count);
+      updateDisplay();
+    }
+
+    function reset() {
+      count = 0;
+      localStorage.setItem('deathCount', count);
+      updateDisplay();
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === '+') increment();
+      if (e.key === 'r') reset();
+    });
+
+    updateDisplay();
+  </script>
+</body>
+</html>
